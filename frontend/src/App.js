@@ -18,7 +18,7 @@ function App() {
           <Route path="/admin-dashboard" element={<><Header adminName={adminName} /><AdminDashboard /></>} />
           <Route path="/create-employee" element={<><Header adminName={adminName} /><CreateEmployee /></>} />
           <Route path="/employees" element={<><Header adminName={adminName} /><EmployeeList /></>} />
-          <Route path="/edit-employee/:id" element={<EditEmployee />} />
+          <Route path="/edit-employee/:id"element={<><Header adminName={adminName} /><EditEmployee /></>} />
         </Routes>
       </div>
     </Router>

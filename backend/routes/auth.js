@@ -34,5 +34,15 @@ router.post('/', async (req, res) => { // Handles POST request to /api/auth
     }
   });
   
+  router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.error('Logout error:', err);
+            return res.status(500).send('Server error');
+        }
+        res.clearCookie('connect.sid'); // Clear the session cookie
+        res.json({ message: 'Logout successful' });
+    });
+});
 
 module.exports = router;

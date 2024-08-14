@@ -63,7 +63,7 @@ function CreateEmployee() {
   const onSubmit = async e => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     setLoading(true);
     try {
       const form = new FormData();
@@ -76,14 +76,14 @@ function CreateEmployee() {
       if (image) {
         form.append('image', image);
       }
-
+  
       const config = {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       };
-
-      const res = await axios.post('/api/employees', form, config);
+  
+      const res = await axios.post('http://localhost:5000/api/employees', form, config);
       console.log(res.data);
       // Reset form and show success message
       setFormData({
@@ -98,12 +98,13 @@ function CreateEmployee() {
       setErrors({});
       alert('Employee created successfully!');
     } catch (err) {
-      console.error(err.response.data);
-      setErrors({ form: 'Failed to create employee. Please try again.' });
+      console.error(err.response ? err.response.data : err.message);
+      setErrors({ form: err.response ? err.response.data.message || 'Failed to create employee. Please try again.' : 'Failed to create employee. Please try again.' });
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="create-employee-container">
